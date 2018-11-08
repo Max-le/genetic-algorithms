@@ -21,13 +21,21 @@ public class Practical2 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
+		//Size of the initial population
 		int popSize = 100;
+
+		//Creating the alhabet ( A to Z + space)
 		for (char c = 'A'; c <= 'Z'; c++) {
 			alphabet[c - 'A'] = c;
 		}
 		alphabet[26] = ' ';
+
+
 		Random generator = new Random(System.currentTimeMillis());
+		//Create a arrays containing the objects "Individual".
 		Individual[] population = new Individual[popSize];
+		
 		// we initialize the population with random characters
 		for (int i = 0; i < popSize; i++) {
 			char[] tempChromosome = new char[TARGET.length()];
@@ -41,10 +49,11 @@ public class Practical2 {
 		//Create an individual with correct solution
 		population[99]= new Individual("HELLO WORLD".toCharArray());
 
-		for (int i = 0; i < population.length; i++) {
 
-		population[i].setFitness(calcFitness(population[i]));
-}
+		//Calculate and assign fitness for every individual 
+		for (int i = 0; i < population.length; i++) {
+			population[i].setFitness(calcFitness(population[i]));
+		}
 
 
 
@@ -61,7 +70,7 @@ public class Practical2 {
 		/**
 		 * Some general programming remarks and hints:
 		 * - A crucial point is to set each individual's fitness (by the setFitness() method) before sorting. When is an individual fit? 
-		 * 	How do you encode that into a double (between 0 and 1)?
+		 * 	How do you encode that into a double (between 0 and 1)? -- CHECK
 		 * - Decide when to stop, that is: when the algorithm has converged. And make sure you  terminate your loop when it does.
 		 * - print the whole population after convergence and print the number of generations it took to converge.
 		 * - print lots of output (especially if things go wrong).
@@ -75,17 +84,17 @@ public class Practical2 {
 		 */
 	}
 
-			public static double calcFitness(Individual individu){
+	public static double calcFitness(Individual individu){
 
-			double fitness = 0 ; 
+		double fitness = 0 ; 
 
-			for (int i = 0 ; i < individu.chromosome.length; i++) {
-				if (individu.chromosome[i] == TARGET.charAt(i) ){
-					fitness = fitness + 1.0;
-				}
+		for (int i = 0 ; i < individu.chromosome.length; i++) {
+			if (individu.chromosome[i] == TARGET.charAt(i) ){
+				fitness = fitness + 1.0;
 			}
-
-
-			return fitness ;
 		}
+
+
+		return fitness ;
+	}
 }

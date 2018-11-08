@@ -25,7 +25,7 @@ public class Individual {
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
 	}
-	
+	//Basically convert the char[] array to a String. 
 	public String genoToPhenotype() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(chromosome);
