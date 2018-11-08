@@ -41,11 +41,20 @@ public class Practical2 {
 		//Create an individual with correct solution
 		population[99]= new Individual("HELLO WORLD".toCharArray());
 
+		for (int i = 0; i < population.length; i++) {
+
+		population[i].setFitness(calcFitness(population[i]));
+}
+
+
 
 		for (int i = 0; i < population.length; i++) {
 			System.out.println(population[i].genoToPhenotype());
 			System.out.println("fitness : "+ population[i].getFitness());
 		}
+
+
+
 
 
 		// do your own cool GA here
@@ -65,4 +74,18 @@ public class Practical2 {
 		 * - Check your integers and doubles (eg. don't use ints for double divisions).
 		 */
 	}
+
+			public static double calcFitness(Individual individu){
+
+			double fitness = 0 ; 
+
+			for (int i = 0 ; i < individu.chromosome.length; i++) {
+				if (individu.chromosome[i] == TARGET.charAt(i) ){
+					fitness = fitness + 1.0;
+				}
+			}
+
+
+			return fitness ;
+		}
 }
