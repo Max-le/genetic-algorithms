@@ -61,11 +61,34 @@ public class Practical2 {
 			population[i].setFitness(calcFitness(population[i]));
 		}
 
+		//Sort the population according to their fitness.
+		HeapSort.sort(population);
+
+		//Creates a mating pool : a subset of the population ( 25 %) that are elected to reproduce.
+		Individual[] matingPool = new Individual[popSize/4];
+
+		//Lottery time : every individual tries their chance. 
+		//The probability for an individual to be selected equals its fitness.
+		if (DEBUG) System.out.println("Random numbers :");
+		for (int i = 0 ; i < population.length ; i++ ) {
+			//random number k 
+			Random gen = new Random();
+			double k = gen.nextDouble();
+			if ( population[i].fitness > 0.25
+			
+		}
 
 
-		for (int i = 0; i < population.length; i++) {
-			System.out.println(population[i].genoToPhenotype());
-			System.out.println("fitness : "+ population[i].getFitness());
+
+
+
+
+		//Just DEBUG info
+		if (DEBUG) {
+			for (int i = 0; i < population.length; i++) {
+				System.out.print(population[i].genoToPhenotype());
+				System.out.println("  "+population[i].getFitness());
+			}
 		}
 
 
@@ -95,17 +118,13 @@ public class Practical2 {
 	that match the target ( must be same character and same position).
 	*/
 	public static double calcFitness(Individual individu){
-
-
 		double fitness = 0 ; 
-
 		for (int i = 0 ; i < individu.chromosome.length; i++) {
+			//Checks if the character at position i is the same in target
 			if (individu.chromosome[i] == TARGET.charAt(i) ){
 				fitness = fitness + 1.0/individu.chromosome.length;
 			}
 		}
-
-
 		return fitness ;
 	}
 }
