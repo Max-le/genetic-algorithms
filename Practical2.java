@@ -16,6 +16,7 @@ public class Practical2 {
 
 	static final String TARGET = "HELLO WORLD";
 	static char[] alphabet = new char[27];
+	static final boolean DEBUG = true ; 
 
 	/**
 	 * @param args
@@ -35,15 +36,20 @@ public class Practical2 {
 		Random generator = new Random(System.currentTimeMillis());
 		//Create a arrays containing the objects "Individual".
 		Individual[] population = new Individual[popSize];
-		
+
 		// we initialize the population with random characters
+		if (DEBUG) System.out.println("initializing the population...");
+
 		for (int i = 0; i < popSize; i++) {
 			char[] tempChromosome = new char[TARGET.length()];
 			for (int j = 0; j < TARGET.length(); j++) {
 				tempChromosome[j] = alphabet[generator.nextInt(alphabet.length)]; //choose a random letter in the alphabet
 			}
 			population[i] = new Individual(tempChromosome);
+			if (DEBUG) System.out.println(population[i].genoToPhenotype());
 		}
+		if (DEBUG) System.out.println("Initial population created.");
+
 		// What does your population look like?
 
 		//Create an individual with correct solution
@@ -84,13 +90,18 @@ public class Practical2 {
 		 */
 	}
 
+	/*Give a fitness score to an individual between 0 and 1. 
+	The function function is the percentage of characters 
+	that match the target ( must be same character and same position).
+	*/
 	public static double calcFitness(Individual individu){
+
 
 		double fitness = 0 ; 
 
 		for (int i = 0 ; i < individu.chromosome.length; i++) {
 			if (individu.chromosome[i] == TARGET.charAt(i) ){
-				fitness = fitness + 1.0;
+				fitness = fitness + 1.0/individu.chromosome.length;
 			}
 		}
 
