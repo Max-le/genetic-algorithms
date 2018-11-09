@@ -56,6 +56,10 @@ public class Practical2 {
 		population[99]= new Individual("HELLO WORLD".toCharArray());
 
 
+
+		//SELECTION PHASE 
+
+
 		//Calculate and assign fitness for every individual 
 		for (int i = 0; i < population.length; i++) {
 			population[i].setFitness(calcFitness(population[i]));
@@ -67,16 +71,20 @@ public class Practical2 {
 		//Creates a mating pool : a subset of the population ( 25 %) that are elected to reproduce.
 		Individual[] matingPool = new Individual[popSize/4];
 
-		//Lottery time : every individual tries their chance. 
-		//The probability for an individual to be selected equals its fitness.
-		if (DEBUG) System.out.println("Random numbers :");
-		for (int i = 0 ; i < population.length ; i++ ) {
-			//random number k 
-			Random gen = new Random();
-			double k = gen.nextDouble();
-			if ( population[i].fitness > 0.25
+ 
+		//Sort the population according to their fitness.
+		HeapSort.sort(population);
+
+		//Adds to the top 25% to the pool
+		for (int i = 0 ; i < matingPool.length ;i++ ) {
+			matingPool[i] = population[i];
 			
 		}
+
+
+		//REPRODUCTION PHASE
+
+		//REMPLACER la liste population[] par les children fait par la matingPool
 
 
 
