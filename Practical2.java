@@ -314,7 +314,7 @@ public class Practical2 {
 		Individual child = new Individual(newchromosome); 
 		if (DEBUG)  System.out.println("new child : " + child.genoToPhenotype());
 		return child; 
-	}
+	}//End crossover method
 
 	/**Exposes the child to gamma rays ( may result as an alteration of the DNA ...)
 	@param individu Indivudual that we are gonna expose to gamma rays and may mutate
