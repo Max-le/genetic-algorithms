@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.io.*;
 
 /**
  * Some very basic stuff to get you started. It shows basically how each
@@ -16,15 +17,16 @@ public class Practical2 {
 
 	static final String TARGET = "HELLO WORLD";
 	static char[] alphabet = new char[27];
-	static final boolean DEBUG = false ; 
+	static final boolean DEBUG = true ; 
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
+
 		//Size of the initial population
-		int popSize = 100;
+		int popSize = 20;
 
 		//Creating the alhabet ( A to Z + space)
 		for (char c = 'A'; c <= 'Z'; c++) {
@@ -53,20 +55,64 @@ public class Practical2 {
 		// What does your population look like?
 
 		//Create an individual with correct solution
-		population[99]= new Individual("HELLO WORLD".toCharArray());
+		//population[99]= new Individual("HELLO WORLD".toCharArray());
 
 
 
-		//SELECTION PHASE 
+
+		//--------- SELECTION PHASE --------------//
 
 
 		//Calculate and assign fitness for every individual 
 		for (int i = 0; i < population.length; i++) {
 			population[i].setFitness(calcFitness(population[i]));
 		}
+		//Just DEBUG info in a external txt file
+		if (DEBUG) {	
+			String log = new String(); 
+			for (int i = 0; i < population.length; i++) {
+				log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
+			}
+			try {
+				PrintWriter writer = new PrintWriter("log/init_population.txt", "UTF-8");
+				writer.println(log);
+				writer.close(); 
+
+			}
+			catch( FileNotFoundException e) {
+				System.out.println("ERROR ! 🎃 File not found.");
+
+			}
+			catch (UnsupportedEncodingException e ){
+				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+
+			}
+		}
 
 		//Sort the population according to their fitness.
 		HeapSort.sort(population);
+
+		//Just DEBUG info in a external txt file
+		if (DEBUG) {	
+			String log = new String(); 
+			for (int i = 0; i < population.length; i++) {
+				log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
+			}
+			try {
+				PrintWriter writer = new PrintWriter("log/init_population_sorted.txt", "UTF-8");
+				writer.println(log);
+				writer.close(); 
+
+			}
+			catch( FileNotFoundException e) {
+				System.out.println("ERROR ! 🎃 File not found.");
+
+			}
+			catch (UnsupportedEncodingException e ){
+				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+
+			}
+		}
 
 		//Creates a mating pool : a subset of the population ( 25 %) that are elected to reproduce.
 		//Mating pool = elite of the population
@@ -77,57 +123,84 @@ public class Practical2 {
 			matingPool[i] = population[i];	
 		}
 
+		//Just DEBUG info in a external txt file
+		if (DEBUG) {	
+			String log = new String(); 
+			for (int i = 0; i < matingPool.length; i++) {
+				log = log + matingPool[i].genoToPhenotype() + " " + matingPool[i].getFitness() +"\n";
+			}
+			try {
+				PrintWriter writer = new PrintWriter("log/Mating_pool.txt", "UTF-8");
+				writer.println(log);
+				writer.close(); 
+
+			}
+			catch( FileNotFoundException e) {
+				System.out.println("ERROR ! 🎃 File not found.");
+
+			}
+			catch (UnsupportedEncodingException e ){
+				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+
+			}
+		}
 
 
+		//-------------REPRODUCTION PHASE--------------//
 
-		//REPRODUCTION PHASE
 
 		//REMPLACER la liste population[] par les children fait par la matingPool
 		//The fresher generation. 
 
 		//Individuals picked for reproduction
+		Individual[] nextgen = new Individual[popSize];
 
 		for (int i = 0 ;i<popSize ;i++ ) {
 			
-		
-		Individual mate1 = select(matingPool); 
-		Individual mate2 = select(matingPool) ;
 
-		if (DEBUG) System.out.println("Individuals selected for reproduction  : \n"+ mate1.genoToPhenotype() + "\n"+ mate2.genoToPhenotype()+"\n---------"); 
+			Individual mate1 = select(matingPool); 
+			Individual mate2 = select(matingPool) ;
+
+			if (DEBUG) System.out.println("Individuals selected for reproduction  : \n"+ mate1.genoToPhenotype() + "\n"+ mate2.genoToPhenotype()+"\n---------"); 
 
 		//Crossover : creating the child
-		Individual child = crossover(mate1, mate2);
-		if (DEBUG) System.out.println("Before muatation  :\n"+child.genoToPhenotype());
+			Individual child = crossover(mate1, mate2);
+			if (DEBUG) System.out.println("Before mutation  :\n"+child.genoToPhenotype());
 		//mutate the child
-		child = mutation(child, 0.3) ; 
-		if (DEBUG)  System.out.println("After mutation : \n"+child.genoToPhenotype()); 
+			child = mutation(child, 0.3) ; 
+			if (DEBUG)  System.out.println("After mutation : \n"+child.genoToPhenotype()); 
 
 
 		//children are the new generation, they replace the population
-		population[i] = child ; 
-	}
-
-
-
-
-
-		for (int i = 0 ; i < popSize ; i++ ) {
-			
-			
+			population[i] = child ; 
 		}
 
-		Individual[] newPopulation = new Individual[popSize];
 
 
+		//Recalculate and assign fitness for every individual 
+		for (int i = 0; i < population.length; i++) {
+			population[i].setFitness(calcFitness(population[i]));
+		}
 
-
-
-
-		//Just DEBUG info
-		if (DEBUG) {
+		//Just DEBUG info in a external txt file
+		if (DEBUG) {	
+			String log = new String(); 
 			for (int i = 0; i < population.length; i++) {
-				System.out.print(population[i].genoToPhenotype());
-				System.out.println("  "+population[i].getFitness());
+				log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
+			}
+			try {
+				PrintWriter writer = new PrintWriter("log/population_nextgen.txt", "UTF-8");
+				writer.println(log);
+				writer.close(); 
+
+			}
+			catch( FileNotFoundException e) {
+				System.out.println("ERROR ! 🎃 File not found.");
+
+			}
+			catch (UnsupportedEncodingException e ){
+				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+
 			}
 		}
 
@@ -271,10 +344,10 @@ public class Practical2 {
 			i++;
 			
 		}//end for loop
-	Individual mutatedIndividual = new Individual(newDNA);
-	
-	if (DEBUG)	System.out.println("Mutated individual : "+ mutatedIndividual.genoToPhenotype());
-	return mutatedIndividual;
+		Individual mutatedIndividual = new Individual(newDNA);
+
+		if (DEBUG)	System.out.println("Mutated individual : "+ mutatedIndividual.genoToPhenotype());
+		return mutatedIndividual;
 
 
 	}
