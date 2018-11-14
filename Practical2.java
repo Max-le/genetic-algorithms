@@ -26,7 +26,7 @@ public class Practical2 {
 
 
 		//Size of the initial population
-		int popSize = 20;
+		int popSize = 100000;
 
 		//Creating the alhabet ( A to Z + space)
 		for (char c = 'A'; c <= 'Z'; c++) {
@@ -190,6 +190,7 @@ public class Practical2 {
 	@param rate Chance of a letter is altered ( between 0 and 1 )
 	*/
 	public static Individual mutation(Individual individu, double rate){
+		final boolean DEBUG = false; 
 		if (DEBUG ) System.out.println("Trying to mutate "+individu.genoToPhenotype() + " with rate "+ rate);
 
 
@@ -212,7 +213,7 @@ public class Practical2 {
 
 				//Gives a random letter
 				newDNA[i] =  alphabet[ran.nextInt(alphabet.length)]; 
-				System.out.println("mutation !  "+(i+1)+"nd element" +" becomes "+newDNA[i]);
+				if (DEBUG ) System.out.println("mutation !  "+(i+1)+"nd element" +" becomes "+newDNA[i]);
 
 			} 
 			else {
@@ -238,7 +239,7 @@ public class Practical2 {
 
 		//Recursive method to make a loop
 	public static Individual[] evolution( Individual[] population ){
-		final boolean DEBUG = true ; 
+		final boolean DEBUG = false ; 
 		int popSize =  population.length; 
 
 		//--------- SELECTION PHASE --------------//
@@ -261,7 +262,7 @@ public class Practical2 {
 
 		//BASE CASE of recursive call
 		if (targetFound){
-			if (DEBUG) System.out.println("TARGET FOUND !!! " + "Position "+position_target);
+			 System.out.println("TARGET FOUND !!! " + "Position "+position_target);
 			return population; 
 		}
 		else 
@@ -298,6 +299,9 @@ public class Practical2 {
 
 		//Sort the population according to their fitness.
 			HeapSort.sort(population);
+			//Fittest individual
+			System.out.println("Best one : "+ population[0].genoToPhenotype()+ " "+population[0].getFitness());
+			
 
 		//Just DEBUG info in a external txt file
 			if (DEBUG) {	

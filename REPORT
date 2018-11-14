@@ -1,0 +1,17 @@
+REPORT
+
+
+I tried to do the main loop in a recursive way, but it seems that Java gives up at one point : it returns a StackOverFlow error. 
+Therefore, it seems more appropriate to use a while loop, where in theory Java won't stop.
+
+
+Note : the recursive method seems to work with a very initial population. 
+My guess is that the smaller the population is, the faster the loop executes but it requires more itireation ( so many that Java returns Overflow error).
+With a big population, I could clearly see that the loop was slower, but the number of itireations necessary to find the solution was much lower. ( When I set the population size to 100000, it takes only about 10 itireations.)
+
+
+/TO DO : 
+
+- Change the crossover method ( to avoid to get stuck with a too small population)
+- Maybe also change the mutation method
+- Change loop method from recusrive to while loop
