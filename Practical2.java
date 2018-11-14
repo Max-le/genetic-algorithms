@@ -217,10 +217,12 @@ public class Practical2 {
 		//--------- SELECTION PHASE --------------//
 
 		//BASE CASE of recursive call : 
+
 		//Search the population if there's an individual matching the target
 		boolean targetFound = false ;
-		for (int i = 0 ; ; ) {
-		 	
+		for (int i = 0 ; i < popSize ; i++) {
+		 	if (TARGET.equals(population[i])) targetFound = true ; 
+
 		 } 
 
 
