@@ -15,3 +15,13 @@ With a big population, I could clearly see that the loop was slower, but the num
 - Change the crossover method ( to avoid to get stuck with a too small population)
 - Maybe also change the mutation method
 - Change loop method from recusrive to while loop
+
+
+CROSSOVER : 
+I started by coding the crossover method very simple : just take the first half of the first parent, then take the second  half of seoncd parent, and merge. For example, the two parents
+PHILOSOPHY
+ASTONISHED
+would have given the child
+PHILOISHED.
+However, the algorithm get easily stuck with initialtion population < 100000. So I decided to change the crossover method.
+For every character, the child will have 50% chance of inherit the character of parent 1 and 50% chance from parent2.

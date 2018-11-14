@@ -27,8 +27,8 @@ public class Practical2 {
 
 
 		//Size of the initial population
-		int popSize = 10000;
-		double MUTATION_RATE = 0.1;
+		int popSize = 100;
+		double MUTATION_RATE = 0.5;
 
 
 		//Creating the alhabet ( A to Z + space)
@@ -288,40 +288,28 @@ public class Practical2 {
 		String dna2 = parent2.genoToPhenotype() ; 
 		String newDNA = new String(); 
 
-		//Spliting point
 		final int LENGTH_OF_DNA = dna1.length();
 		if (DEBUG) System.out.println("LENGTH_OF_DNA : "+ LENGTH_OF_DNA);
-		int split =  LENGTH_OF_DNA / 2 ; 
-		if (DEBUG) System.out.println("splitting point : "+ split);
 
 		// DNA as form of char list instead of String
 		char[] chromosome1 = parent1.getChromosome();
 		char[] chromosome2 = parent2.getChromosome();
 		char[] newchromosome = new char[LENGTH_OF_DNA];
-		int i = 0 ; 
 
-		if (DEBUG) System.out.println("Copying DNA from first parent...");
-		while (i<split) {
-			//Copy firsts characters from parent1
-			newchromosome[i] = chromosome1[i];
-
-			if (DEBUG) {
-				String b = String.valueOf(newchromosome);
-				if (DEBUG) System.out.println(b + "\n i : "+i);
-			} 
-			i++;
+		Random ran = new Random(); 
+		for (int i =0 ;i < LENGTH_OF_DNA ;i++ ) {
+			double x = ran.nextDouble(); 
+			if(x< 0.5){
+				if (DEBUG) System.out.println("Copying Character from first parent...");
+				newchromosome[i] = chromosome1[i];
+			}
+			else {
+				if (DEBUG) System.out.println("Copying Character from second parent...");
+				newchromosome[i] = chromosome2[i];
+			}
+			
 		}
-		if (DEBUG) System.out.println("switching the second parent...");
-		while (i >= split && i < LENGTH_OF_DNA){
-			//Copy latter characters from parent2
-			newchromosome[i] = chromosome2[i];
-			if (DEBUG) {
-				String b = new String(newchromosome);
-				if (DEBUG) System.out.println(b + "\n i : "+i);
-			} 
-			i++;
-		}
-
+	
 			//Create the child
 		Individual child = new Individual(newchromosome); 
 		if (DEBUG)  System.out.println("new child : " + child.genoToPhenotype());
