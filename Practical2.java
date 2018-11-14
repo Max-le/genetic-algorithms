@@ -55,7 +55,32 @@ public class Practical2 {
 		// What does your population look like?
 
 		//Create an individual with correct solution
-		//population[99]= new Individual("HELLO WORLD".toCharArray());
+		population[19]= new Individual("HELLO WORLD".toCharArray());
+
+		//Final population should contain the target
+		Individual[] finalpop  = evolution(population);
+
+			if (DEBUG) {	
+				String log = new String(); 
+				for (int i = 0; i < finalpop.length; i++) {
+					log = log + finalpop[i].genoToPhenotype() + " " + finalpop[i].getFitness() +"\n";
+				}
+				try {
+					PrintWriter writer = new PrintWriter("log/final_generation.txt", "UTF-8");
+					writer.println(log);
+					writer.close(); 
+
+				}
+				catch( FileNotFoundException e) {
+					System.out.println("ERROR !  File not found.");
+
+				}
+				catch (UnsupportedEncodingException e ){
+					System.out.println("ERROR !  UnsupportedEncodingException returned.");
+
+				}
+			}
+
 
 
 
@@ -216,99 +241,113 @@ public class Practical2 {
 
 		//--------- SELECTION PHASE --------------//
 
-		//BASE CASE of recursive call : 
+		boolean targetFound = false ;
+		int position_target = 0 ;
 
 		//Search the population if there's an individual matching the target
-		boolean targetFound = false ;
 		for (int i = 0 ; i < popSize ; i++) {
-		 	if (TARGET.equals(population[i])) targetFound = true ; 
+			if (TARGET.equals(population[i].genoToPhenotype())){
+				targetFound = true ; 
+				position_target = i ; 
+			}
+			else{
+		 		//Target not found. Continue searching...
+			}
+			
+		}
 
-		 } 
-
+		//BASE CASE of recursive call
+		if (targetFound){
+			if (DEBUG) System.out.println("TARGET FOUND !!! " + "Position "+position_target);
+			return population; 
+		}
+		else 
+		{
+			System.out.println("TARGET was not found in this generation. Continue evolution...");
 
 
 
 		//Calculate and assign fitness for every individual 
-		for (int i = 0; i < population.length; i++) {
-			population[i].setFitness(Practical2.calcFitness(population[i]));
-		}
-		//Just DEBUG info in a external txt file
-		if (DEBUG) {	
-			String log = new String(); 
 			for (int i = 0; i < population.length; i++) {
-				log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
+				population[i].setFitness(Practical2.calcFitness(population[i]));
 			}
-			try {
-				PrintWriter writer = new PrintWriter("log/init_population.txt", "UTF-8");
-				writer.println(log);
-				writer.close(); 
+		//Just DEBUG info in a external txt file
+			if (DEBUG) {	
+				String log = new String(); 
+				for (int i = 0; i < population.length; i++) {
+					log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
+				}
+				try {
+					PrintWriter writer = new PrintWriter("log/init_population.txt", "UTF-8");
+					writer.println(log);
+					writer.close(); 
 
-			}
-			catch( FileNotFoundException e) {
-				System.out.println("ERROR !  File not found.");
+				}
+				catch( FileNotFoundException e) {
+					System.out.println("ERROR !  File not found.");
 
-			}
-			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR !  UnsupportedEncodingException returned.");
+				}
+				catch (UnsupportedEncodingException e ){
+					System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
+				}
 			}
-		}
 
 		//Sort the population according to their fitness.
-		HeapSort.sort(population);
+			HeapSort.sort(population);
 
 		//Just DEBUG info in a external txt file
-		if (DEBUG) {	
-			String log = new String(); 
-			for (int i = 0; i < population.length; i++) {
-				log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
-			}
-			try {
-				PrintWriter writer = new PrintWriter("log/init_population_sorted.txt", "UTF-8");
-				writer.println(log);
-				writer.close(); 
+			if (DEBUG) {	
+				String log = new String(); 
+				for (int i = 0; i < population.length; i++) {
+					log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
+				}
+				try {
+					PrintWriter writer = new PrintWriter("log/init_population_sorted.txt", "UTF-8");
+					writer.println(log);
+					writer.close(); 
 
-			}
-			catch( FileNotFoundException e) {
-				System.out.println("ERROR !  File not found.");
+				}
+				catch( FileNotFoundException e) {
+					System.out.println("ERROR !  File not found.");
 
-			}
-			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR !  UnsupportedEncodingException returned.");
+				}
+				catch (UnsupportedEncodingException e ){
+					System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
+				}
 			}
-		}
 
 		//Creates a mating pool : a subset of the population ( 25 %) that are elected to reproduce.
 		//Mating pool = elite of the population
-		Individual[] matingPool = new Individual[popSize/4];
+			Individual[] matingPool = new Individual[popSize/4];
 
 		//Adds to the top 25% to the pool
-		for (int i = 0 ; i < matingPool.length ;i++ ) {
-			matingPool[i] = population[i];	
-		}
+			for (int i = 0 ; i < matingPool.length ;i++ ) {
+				matingPool[i] = population[i];	
+			}
 
 		//Just DEBUG info in a external txt file
-		if (DEBUG) {	
-			String log = new String(); 
-			for (int i = 0; i < matingPool.length; i++) {
-				log = log + matingPool[i].genoToPhenotype() + " " + matingPool[i].getFitness() +"\n";
-			}
-			try {
-				PrintWriter writer = new PrintWriter("log/Mating_pool.txt", "UTF-8");
-				writer.println(log);
-				writer.close(); 
+			if (DEBUG) {	
+				String log = new String(); 
+				for (int i = 0; i < matingPool.length; i++) {
+					log = log + matingPool[i].genoToPhenotype() + " " + matingPool[i].getFitness() +"\n";
+				}
+				try {
+					PrintWriter writer = new PrintWriter("log/Mating_pool.txt", "UTF-8");
+					writer.println(log);
+					writer.close(); 
 
-			}
-			catch( FileNotFoundException e) {
-				System.out.println("ERROR !  File not found.");
+				}
+				catch( FileNotFoundException e) {
+					System.out.println("ERROR !  File not found.");
 
-			}
-			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR !  UnsupportedEncodingException returned.");
+				}
+				catch (UnsupportedEncodingException e ){
+					System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
+				}
 			}
-		}
 
 
 		//-------------REPRODUCTION PHASE--------------//
@@ -318,57 +357,58 @@ public class Practical2 {
 		//The fresher generation. 
 
 		//Individuals picked for reproduction
-		Individual[] nextgen = new Individual[popSize];
+			Individual[] nextgen = new Individual[popSize];
 
-		for (int i = 0 ;i<popSize ;i++ ) {
-			
+			for (int i = 0 ;i<popSize ;i++ ) {
 
-			Individual mate1 = select(matingPool); 
-			Individual mate2 = select(matingPool) ;
 
-			if (DEBUG) System.out.println("Individuals selected for reproduction  : \n"+ mate1.genoToPhenotype() + "\n"+ mate2.genoToPhenotype()+"\n---------"); 
+				Individual mate1 = select(matingPool); 
+				Individual mate2 = select(matingPool) ;
+
+				if (DEBUG) System.out.println("Individuals selected for reproduction  : \n"+ mate1.genoToPhenotype() + "\n"+ mate2.genoToPhenotype()+"\n---------"); 
 
 		//Crossover : creating the child
-			Individual child = crossover(mate1, mate2);
-			if (DEBUG) System.out.println("Before mutation  :\n"+child.genoToPhenotype());
+				Individual child = crossover(mate1, mate2);
+				if (DEBUG) System.out.println("Before mutation  :\n"+child.genoToPhenotype());
 		//mutate the child
-			child = mutation(child, 0.3) ; 
-			if (DEBUG)  System.out.println("After mutation : \n"+child.genoToPhenotype()); 
+				child = mutation(child, 0.1) ; 
+				if (DEBUG)  System.out.println("After mutation : \n"+child.genoToPhenotype()); 
 
 
 		//children are the new generation, they replace the population
-			population[i] = child ; 
-		}
+				population[i] = child ; 
+			}
 
 
 
 		//Recalculate and assign fitness for every individual 
-		for (int i = 0; i < population.length; i++) {
-			population[i].setFitness(calcFitness(population[i]));
-		}
+			for (int i = 0; i < population.length; i++) {
+				population[i].setFitness(calcFitness(population[i]));
+			}
 
 		//Just DEBUG info in a external txt file
-		if (DEBUG) {	
-			String log = new String(); 
-			for (int i = 0; i < population.length; i++) {
-				log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
-			}
-			try {
-				PrintWriter writer = new PrintWriter("log/population_nextgen.txt", "UTF-8");
-				writer.println(log);
-				writer.close(); 
+			if (DEBUG) {	
+				String log = new String(); 
+				for (int i = 0; i < population.length; i++) {
+					log = log + population[i].genoToPhenotype() + " " + population[i].getFitness() +"\n";
+				}
+				try {
+					PrintWriter writer = new PrintWriter("log/population_nextgen.txt", "UTF-8");
+					writer.println(log);
+					writer.close(); 
 
-			}
-			catch( FileNotFoundException e) {
-				System.out.println("ERROR !  File not found.");
+				}
+				catch( FileNotFoundException e) {
+					System.out.println("ERROR !  File not found.");
 
-			}
-			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR !  UnsupportedEncodingException returned.");
+				}
+				catch (UnsupportedEncodingException e ){
+					System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
+				}
 			}
+			return evolution(population);
 		}
-		return evolution(population);
 	}
 
 }
