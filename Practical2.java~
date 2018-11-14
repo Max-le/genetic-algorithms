@@ -73,7 +73,7 @@ public class Practical2 {
 					position_target = i ; 
 				}
 				else{
-		 		//System.out.println("Target not found. Continue searching...") ; 
+		 		System.out.println("Target not found. Continue searching...") ; 
 				}
 
 			}
@@ -106,7 +106,7 @@ public class Practical2 {
 
 		//Sort the population according to their fitness.
 			HeapSort.sort(population);
-			//Show fittest individual
+			//Fittest individual
 			System.out.println("Best one : "+ population[0].genoToPhenotype()+ " "+population[0].getFitness());
 
 
@@ -185,7 +185,7 @@ public class Practical2 {
 				Individual child = crossover(mate1, mate2);
 				if (DEBUG) System.out.println("Before mutation  :\n"+child.genoToPhenotype());
 		//mutate the child
-				child = mutation(child, 0.4) ; 
+				child = mutation(child, 0.1) ; 
 				if (DEBUG)  System.out.println("After mutation : \n"+child.genoToPhenotype()); 
 
 
@@ -221,7 +221,7 @@ public class Practical2 {
 
 				}
 			}
-		}//END WHILE LOOP
+		}
 
 
 
