@@ -245,11 +245,11 @@ public class Practical2 {
 
 			}
 			catch( FileNotFoundException e) {
-				System.out.println("ERROR ! 🎃 File not found.");
+				System.out.println("ERROR !  File not found.");
 
 			}
 			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+				System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
 			}
 		}
@@ -270,11 +270,11 @@ public class Practical2 {
 
 			}
 			catch( FileNotFoundException e) {
-				System.out.println("ERROR ! 🎃 File not found.");
+				System.out.println("ERROR !  File not found.");
 
 			}
 			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+				System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
 			}
 		}
@@ -301,11 +301,11 @@ public class Practical2 {
 
 			}
 			catch( FileNotFoundException e) {
-				System.out.println("ERROR ! 🎃 File not found.");
+				System.out.println("ERROR !  File not found.");
 
 			}
 			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+				System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
 			}
 		}
@@ -360,11 +360,11 @@ public class Practical2 {
 
 			}
 			catch( FileNotFoundException e) {
-				System.out.println("ERROR ! 🎃 File not found.");
+				System.out.println("ERROR !  File not found.");
 
 			}
 			catch (UnsupportedEncodingException e ){
-				System.out.println("ERROR ! 🎃 UnsupportedEncodingException returned.");
+				System.out.println("ERROR !  UnsupportedEncodingException returned.");
 
 			}
 		}
