@@ -359,7 +359,7 @@ public class Practical2 {
 
 			}
 		}
-		return population;
+		return evolution(population);
 	}
 
 }
