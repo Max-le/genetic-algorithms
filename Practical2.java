@@ -17,7 +17,8 @@ public class Practical2 {
 
 	static final String TARGET = "HELLO WORLD";
 	static char[] alphabet = new char[27];
-	static final boolean DEBUG = true ; 
+	static final boolean DEBUG = true ;
+
 
 	/**
 	 * @param args
@@ -27,6 +28,8 @@ public class Practical2 {
 
 		//Size of the initial population
 		int popSize = 10000;
+		double MUTATION_RATE = 0.1;
+
 
 		//Creating the alhabet ( A to Z + space)
 		for (char c = 'A'; c <= 'Z'; c++) {
@@ -185,7 +188,7 @@ public class Practical2 {
 				Individual child = crossover(mate1, mate2);
 				if (DEBUG) System.out.println("Before mutation  :\n"+child.genoToPhenotype());
 		//mutate the child
-				child = mutation(child, 0.4) ; 
+				child = mutation(child, MUTATION_RATE) ; 
 				if (DEBUG)  System.out.println("After mutation : \n"+child.genoToPhenotype()); 
 
 
