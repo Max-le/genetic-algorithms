@@ -55,7 +55,7 @@ public class Practical2 {
 		// What does your population look like?
 
 		//Create an individual with correct solution
-		population[19]= new Individual("HELLO WORLD".toCharArray());
+		//population[19]= new Individual("HELLO WORLD".toCharArray());
 
 		//Final population should contain the target
 		Individual[] finalpop  = evolution(population);
@@ -128,16 +128,18 @@ public class Practical2 {
 
 	//Selects an individual at random in an array ( the population )
 	public static Individual select(Individual[] population) {
+		final boolean DEBUG = false; 
 		Random ran = new Random(); 
 		int x = ran.nextInt(population.length-1)  ;
-		System.out.println(population.length);
-		System.out.println("x : "+x);	
+		if (DEBUG) System.out.println(population.length);
+		if (DEBUG) System.out.println("x : "+x);	
 		return population[x];
 	}
 
 	/**Performs crossover from two parents, returns a newborn.
 	It simply takes the first half of parent1 and second half from parent2 and merges the two parts.*/
 	public static Individual crossover(Individual parent1, Individual parent2) {
+		final boolean DEBUG = false; 
 
 		String dna1 = parent1.genoToPhenotype() ;
 		String dna2 = parent2.genoToPhenotype() ; 
@@ -147,7 +149,7 @@ public class Practical2 {
 		final int LENGTH_OF_DNA = dna1.length();
 		if (DEBUG) System.out.println("LENGTH_OF_DNA : "+ LENGTH_OF_DNA);
 		int split =  LENGTH_OF_DNA / 2 ; 
-		System.out.println("splitting point : "+ split);
+		if (DEBUG) System.out.println("splitting point : "+ split);
 
 		// DNA as form of char list instead of String
 		char[] chromosome1 = parent1.getChromosome();
@@ -155,14 +157,14 @@ public class Practical2 {
 		char[] newchromosome = new char[LENGTH_OF_DNA];
 		int i = 0 ; 
 
-		System.out.println("Copying DNA from first parent...");
+		if (DEBUG) System.out.println("Copying DNA from first parent...");
 		while (i<split) {
 			//Copy firsts characters from parent1
 			newchromosome[i] = chromosome1[i];
 
 			if (DEBUG) {
 				String b = String.valueOf(newchromosome);
-				System.out.println(b + "\n i : "+i);
+				if (DEBUG) System.out.println(b + "\n i : "+i);
 			} 
 			i++;
 		}
@@ -172,7 +174,7 @@ public class Practical2 {
 			newchromosome[i] = chromosome2[i];
 			if (DEBUG) {
 				String b = new String(newchromosome);
-				System.out.println(b + "\n i : "+i);
+				if (DEBUG) System.out.println(b + "\n i : "+i);
 			} 
 			i++;
 		}
@@ -248,6 +250,7 @@ public class Practical2 {
 		for (int i = 0 ; i < popSize ; i++) {
 			if (TARGET.equals(population[i].genoToPhenotype())){
 				targetFound = true ; 
+				System.out.println("TARGET FOUND !!! ");
 				position_target = i ; 
 			}
 			else{
