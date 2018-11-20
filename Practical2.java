@@ -27,8 +27,8 @@ public class Practical2 {
 
 
 		//Size of the initial population
-		int popSize = 100;
-		double MUTATION_RATE = 0.5;
+		int popSize = 1000;
+		final double MUTATION_RATE = 0.01;
 
 
 		//Creating the alhabet ( A to Z + space)
@@ -321,7 +321,7 @@ public class Practical2 {
 	@param rate Chance of a letter is altered ( between 0 and 1 )
 	*/
 	public static Individual mutation(Individual individu, double rate){
-		final boolean DEBUG = false; 
+		final boolean DEBUG = true; 
 		if (DEBUG ) System.out.println("Trying to mutate "+individu.genoToPhenotype() + " with rate "+ rate);
 
 
@@ -338,10 +338,7 @@ public class Practical2 {
 			double x = ran.nextDouble(); 
 			if (DEBUG) System.out.println("x = "+ x);
 			if (x < rate) {
-
 				//Mutation ! 
-				
-
 				//Gives a random letter
 				newDNA[i] =  alphabet[ran.nextInt(alphabet.length)]; 
 				if (DEBUG ) System.out.println("mutation !  "+(i+1)+"nd element" +" becomes "+newDNA[i]);
